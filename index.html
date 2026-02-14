@@ -3,23 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Interactive Portfolio</title>
+    <title>Madhav Sharma | Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <div class="logo">MY PORTFOLIO</div>
-        <ul>
-            <li>Home</li>
-            <li>Projects</li>
-            <li>Contact</li>
-        </ul>
-    </nav>
+
+    <div id="ui-layer">
+        <nav class="navbar">
+            <div class="logo">MS.DESIGN</div>
+            <div class="nav-links"><span>WORK</span><span>CONTACT</span></div>
+        </nav>
+
+        <div class="hero-section">
+            <h1 class="main-name">MADHAV<br>SHARMA</h1>
+            <p class="tagline">WEB DESIGNER | OPTIMIST | BASKETBALL ENTHUSIAST</p>
+        </div>
+
+        <div id="info-sidebar" class="sidebar">
+            <button class="close-btn" onclick="closeSidebar()">&times;</button>
+            <div class="sidebar-content">
+                <h2 id="side-title">Section</h2>
+                <div class="line"></div>
+                <p id="side-desc">Description...</p>
+            </div>
+        </div>
+    </div>
 
     <div id="canvas-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
