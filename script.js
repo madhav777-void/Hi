@@ -8,29 +8,37 @@ const light = new THREE.PointLight(0xffffff, 1.2);
 light.position.set(5, 5, 5);
 scene.add(light, new THREE.AmbientLight(0xffffff, 0.4));
 
-// Data updated as per your request
+// Data Mapping
 const cardData = [
     { 
-        title: "HELLO.", 
-        desc: "I am Madhav Sharma, a passionate web designer who loves creating modern and responsive websites. My greatest strength is being an optimist, always finding solutions and learning from challenges. I enjoy experimenting with new ideas and technologies to build unique websites. In my free time, I love playing basketball and staying active.", 
+        title: "INTRO", 
+        desc: "I am Madhav Sharma, a passionate web designer who loves creating modern and responsive websites. My greatest strength is being an optimist, always finding solutions. In my free time, I love playing basketball.", 
         color: 0x00ffcc 
     },
-    { title: "PROJECTS", desc: "Coming soon... Stay tuned for some unique 3D web experiences.", color: 0x333333 },
-    { title: "CONTACT", desc: "Let's build something amazing together. Reach out via email or LinkedIn.", color: 0x333333 }
+    { 
+        title: "EDUCATION", 
+        desc: "Completed 12th from Dalhousie Hilltop School, Himachal Pradesh (Non-Med with Python). Currently pursuing Cyber Security at Model Institute of Engineering and Technology (MIET).", 
+        color: 0xff0055 
+    },
+    { 
+        title: "AIM", 
+        desc: "Securing the digital world with unique designs and advanced technical skills in Cyber Security.", 
+        color: 0x5500ff 
+    }
 ];
 
 const group = new THREE.Group();
 cardData.forEach((data, i) => {
     const card = new THREE.Mesh(
-        new THREE.BoxGeometry(2.2, 3.2, 0.1),
-        new THREE.MeshStandardMaterial({ color: data.color, metalness: 0.8, roughness: 0.1 })
+        new THREE.BoxGeometry(2, 3, 0.1),
+        new THREE.MeshStandardMaterial({ color: data.color, metalness: 0.7, roughness: 0.2 })
     );
-    card.position.x = (i - 1) * 3.8;
+    card.position.x = (i - 1) * 3.5;
     card.userData = data;
     group.add(card);
 });
 scene.add(group);
-camera.position.z = 8;
+camera.position.z = 7;
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -57,27 +65,22 @@ function openSidebar(title, desc) {
     document.getElementById('side-title').innerText = title;
     document.getElementById('side-desc').innerText = desc;
 
-    // GSAP Animation: Udta hua effect
-    gsap.to("#info-sidebar", { duration: 0.8, x: 0, ease: "expo.out" });
-    gsap.to("#content-wrapper", { duration: 1, opacity: 1, y: 0, delay: 0.3, ease: "power4.out" });
+    // GSAP Flying Animation
+    gsap.to("#info-sidebar", { duration: 0.7, x: 0, ease: "power3.out" });
+    gsap.fromTo("#content-wrapper", 
+        { opacity: 0, y: 50 }, 
+        { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "back.out(1.7)" }
+    );
 }
 
 window.closeSidebar = () => {
-    gsap.to("#content-wrapper", { duration: 0.5, opacity: 0, y: 30 });
-    gsap.to("#info-sidebar", { duration: 0.8, x: "100%", ease: "expo.in" });
+    gsap.to("#info-sidebar", { duration: 0.5, x: "100%", ease: "power3.in" });
 };
 
 function animate() {
     requestAnimationFrame(animate);
-    group.rotation.y += (mX * 0.3 - group.rotation.y) * 0.1;
-    group.rotation.x += (mY * 0.1 - group.rotation.x) * 0.1;
-    group.children.forEach((c, i) => c.position.y = Math.sin(Date.now()*0.001+i)*0.1);
+    group.rotation.y += (mX * 0.4 - group.rotation.y) * 0.1;
+    group.rotation.x += (mY * 0.2 - group.rotation.x) * 0.1;
     renderer.render(scene, camera);
 }
 animate();
-
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
