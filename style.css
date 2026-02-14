@@ -1,28 +1,51 @@
-/* Sidebar default state */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Ye sabse important hai background black karne ke liye */
+body, html { 
+    background-color: #000 !important; 
+    color: #fff; 
+    font-family: 'Inter', sans-serif; 
+    overflow: hidden; 
+    width: 100%;
+    height: 100%;
+}
+
+#canvas-container { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+}
+
+#ui-layer { position: relative; z-index: 10; pointer-events: none; height: 100vh; }
+
+.navbar { display: flex; justify-content: space-between; padding: 40px; pointer-events: auto; }
+.logo { font-weight: 900; letter-spacing: 2px; }
+
+.hero-section { position: absolute; bottom: 10%; left: 5%; }
+.main-name { font-size: clamp(3rem, 12vw, 7rem); line-height: 0.85; font-weight: 900; color: white; }
+.tagline { color: #00ffcc; letter-spacing: 4px; font-size: 0.8rem; margin-top: 20px; }
+
+/* Sidebar Logic - Peeking Effect */
 .sidebar {
     position: fixed; 
-    right: -400px; /* Poora bahar */
+    right: -400px; 
     top: 0; 
     width: 380px; 
     height: 100%;
-    background: rgba(15, 15, 15, 0.8); 
+    background: rgba(20, 20, 20, 0.9); 
     backdrop-filter: blur(15px);
     padding: 80px 40px; 
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: transform 0.5s ease; 
     pointer-events: auto;
-    border-left: 1px solid rgba(0, 255, 204, 0.3);
+    border-left: 1px solid rgba(0, 255, 204, 0.2);
     z-index: 100;
 }
 
-/* Jab cursor card par ho (Hover) */
-.sidebar.preview {
-    transform: translateX(-80px); /* Sirf thodi si jhalak dikhegi */
-    opacity: 0.6;
-}
-
-/* Jab click kar diya ho (Active) */
-.sidebar.open {
-    transform: translateX(-400px); /* Poora andar aa jayega */
-    opacity: 1;
-    border-left: 2px solid #00ffcc;
-}
+.sidebar.preview { transform: translateX(-50px); } /* Hover par jhalak */
+.sidebar.open { transform: translateX(-400px); border-left: 2px solid #00ffcc; }
+.close-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; }
