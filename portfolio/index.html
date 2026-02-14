@@ -3,38 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Interactive Portfolio</title>
+    <title>3D Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Loading screen ke liye chota sa style yahan de rahe hain */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+        body { margin: 0; background: #000; overflow: hidden; }
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        nav { position: relative; z-index: 10; color: white; padding: 20px; display: flex; justify-content: space-between; font-family: sans-serif; }
     </style>
 </head>
 <body>
-
-    <nav style="position: relative; z-index: 10; pointer-events: none;">
-        <div class="logo" style="pointer-events: auto;">MY PORTFOLIO</div>
-        <ul style="pointer-events: auto;">
-            <li>Home</li>
-            <li>Projects</li>
-            <li>Contact</li>
-        </ul>
+    <nav>
+        <div>MY PORTFOLIO</div>
+        <div style="display:flex; gap:20px;"><span>Work</span><span>About</span></div>
     </nav>
-
     <div id="canvas-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
     <script src="script.js"></script>
-
 </body>
 </html>
