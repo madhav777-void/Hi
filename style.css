@@ -3,32 +3,44 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
+/* Video Background */
 #video-wrapper {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
     z-index: -1; display: flex; justify-content: center; align-items: center;
-    background: #000;
+}
+#bg-video { height: 100vh; width: auto; opacity: 0.6; }
+
+/* Three.js Canvas Layer */
+#canvas-container { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100vh; 
+    z-index: 2; pointer-events: auto; 
 }
 
-#bg-video { 
-    height: 100%; width: auto; 
-    opacity: 0.8; filter: contrast(1.1);
-    will-change: transform; /* Performance boost */
+/* Sections */
+.hero-section-wrapper { position: relative; height: 150vh; width: 100%; }
+.hero-content { position: fixed; bottom: 10%; left: 5%; z-index: 10; pointer-events: none; }
+.main-name { font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; line-height: 0.8; }
+.tagline { color: #00ffcc; margin-top: 15px; letter-spacing: 5px; font-size: 0.7rem; }
+
+.navbar { position: fixed; top: 30px; left: 30px; z-index: 100; font-weight: 900; color: #555; }
+
+.gallery-section { 
+    position: relative; padding: 100px 5%; background: rgba(0,0,0,0.9); 
+    z-index: 20; min-height: 100vh;
+}
+.section-title { font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.achievement-card { 
+    height: 300px; background: rgba(255,255,255,0.05); 
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; 
 }
 
-#canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; }
-
-section { width: 100%; position: relative; }
-.top-section { height: 200vh; z-index: 5; pointer-events: none; } /* Increased height for longer scroll area */
-
-.navbar { padding: 30px; pointer-events: auto; }
-.logo { font-weight: 900; letter-spacing: 4px; font-size: 14px; color: #444; }
-
-.hero-section { position: fixed; bottom: 8%; left: 5%; pointer-events: auto; }
-.main-name { font-size: clamp(3rem, 12vw, 8rem); line-height: 0.85; font-weight: 900; }
-.tagline { color: #00ffcc; letter-spacing: 5px; font-size: 0.7rem; margin-top: 15px; }
-
-.gallery-section { padding: 100px 5%; background: rgba(0,0,0,0.9); z-index: 20; }
-.section-title { font-size: 3rem; font-weight: 900; margin-bottom: 60px; text-align: center; }
-
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-.achievement-card { height: 350px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+/* Sidebar */
+.sidebar {
+    position: fixed; right: 0; top: 0; width: 400px; height: 100%;
+    background: #050505; z-index: 200; transform: translateX(100%);
+    transition: 0.5s transform cubic-bezier(0.19, 1, 0.22, 1);
+    padding: 80px 40px; border-left: 1px solid #222;
+}
+.line { width: 40px; height: 3px; background: #00ffcc; margin: 20px 0; }
+.close-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; }
