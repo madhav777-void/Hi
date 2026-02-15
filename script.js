@@ -12,9 +12,9 @@ light.position.set(5, 5, 5);
 scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
 
 const cardData = [
-    { title: "INTRO", desc: "I am Madhav Sharma, a passionate web designer and optimist from MIET. I love building unique 3D websites.", color: 0x00ffcc },
-    { title: "EDUCATION", desc: "12th: Dalhousie Hilltop School. Currently: Pursuing Cyber Security at MIET Jammu.", color: 0xff0055 },
-    { title: "VISION", desc: "Merging Cyber Security with creative 3D Web Development.", color: 0x5500ff }
+    { title: "INTRO", desc: "I am Madhav Sharma, a passionate web designer and optimist from MIET Jammu. I love building unique 3D websites.", color: 0x00ffcc },
+    { title: "EDUCATION", desc: "12th: Dalhousie Hilltop School (Non-Med). Currently: Pursuing Cyber Security at MIET.", color: 0xff0055 },
+    { title: "VISION", desc: "Blending Cyber Security with creative design. Understanding the human brain and machine interaction.", color: 0x5500ff }
 ];
 
 const group = new THREE.Group();
@@ -30,20 +30,32 @@ cardData.forEach((data, i) => {
 scene.add(group);
 camera.position.z = 8;
 
-// VIDEO SCROLL LOGIC
+// BRAIN VIDEO SCROLL SYNC
 const video = document.getElementById('bg-video');
+
+// This function ensures the video frame updates perfectly with the scroll
 ScrollTrigger.create({
-    trigger: "body", start: "top top", end: "bottom bottom", scrub: true,
-    onUpdate: (self) => { if (video.duration) video.currentTime = video.duration * self.progress; }
+    trigger: "body",
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true, // This is the magic part for scroll syncing
+    onUpdate: (self) => {
+        if (video.duration) {
+            // video.currentTime is set based on how much you have scrolled (0 to 1)
+            video.currentTime = video.duration * self.progress;
+        }
+    }
 });
 
-// CARDS ANIMATION ON SCROLL
+// CARDS FLY-UP ANIMATION
 gsap.to(group.position, {
     scrollTrigger: {
-        trigger: ".gallery-section", start: "top bottom", end: "top center", scrub: 1
+        trigger: ".gallery-section",
+        start: "top bottom",
+        end: "top center",
+        scrub: 1
     },
-    y: 12, // Cards fly UP as you scroll down
-    z: -5,
+    y: 12, // Cards move up to make space for the brain video details
     opacity: 0
 });
 
@@ -66,7 +78,6 @@ function openSidebar(data) {
 }
 window.closeSidebar = () => gsap.to("#info-sidebar", { duration: 0.5, x: "100%", ease: "expo.in" });
 
-// Mouse Movement for 3D Cards
 let mX = 0, mY = 0;
 window.addEventListener('mousemove', (e) => {
     mX = (e.clientX / window.innerWidth - 0.5) * 2;
