@@ -4,62 +4,70 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 const light = new THREE.PointLight(0xffffff, 1.5);
 light.position.set(5, 5, 5);
-scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
+scene.add(light, new THREE.AmbientLight(0xffffff, 0.4));
 
 const cardData = [
-    { title: "INTRO", desc: "I am Madhav Sharma, a passionate web designer and optimist from MIET Jammu. I love building unique 3D websites.", color: 0x00ffcc },
-    { title: "EDUCATION", desc: "12th: Dalhousie Hilltop School (Non-Med). Currently: Pursuing Cyber Security at MIET.", color: 0xff0055 },
-    { title: "VISION", desc: "Blending Cyber Security with creative design. Understanding the human brain and machine interaction.", color: 0x5500ff }
+    { title: "INTRO", desc: "Madhav Sharma - MIET Student & Designer.", color: 0x00ffcc },
+    { title: "QUALIFICATION", desc: "Dalhousie Hilltop School & MIET Cyber Security.", color: 0xff0055 },
+    { title: "VISION", desc: "Understanding Brain & Security.", color: 0x5500ff }
 ];
 
 const group = new THREE.Group();
 cardData.forEach((data, i) => {
     const card = new THREE.Mesh(
         new THREE.BoxGeometry(2, 3, 0.1),
-        new THREE.MeshStandardMaterial({ color: data.color, metalness: 0.8, roughness: 0.1 })
+        new THREE.MeshStandardMaterial({ color: data.color, metalness: 0.8 })
     );
-    card.position.x = (i - 1) * 3.8;
+    card.position.x = (i - 1) * 3.5;
     card.userData = data;
     group.add(card);
 });
 scene.add(group);
 camera.position.z = 8;
 
-// BRAIN VIDEO SCROLL SYNC
+// --- VIDEO SCROLL FIX START ---
 const video = document.getElementById('bg-video');
 
-// This function ensures the video frame updates perfectly with the scroll
+// 1. Force video to load and be ready
+video.addEventListener('loadedmetadata', () => {
+    console.log("Video Duration: ", video.duration);
+});
+
+// 2. Smooth Scroll Sync
+let targetTime = 0;
 ScrollTrigger.create({
     trigger: "body",
     start: "top top",
     end: "bottom bottom",
-    scrub: true, // This is the magic part for scroll syncing
+    scrub: true,
     onUpdate: (self) => {
-        if (video.duration) {
-            // video.currentTime is set based on how much you have scrolled (0 to 1)
-            video.currentTime = video.duration * self.progress;
-        }
+        // Target time calculation
+        targetTime = self.progress * video.duration;
     }
 });
 
-// CARDS FLY-UP ANIMATION
+// Use a loop to update video frame smoothly (Bypasses lag)
+function updateVideo() {
+    if (video.duration) {
+        // This makes it buttery smooth
+        video.currentTime = gsap.utils.interpolate(video.currentTime, targetTime, 0.1);
+    }
+    requestAnimationFrame(updateVideo);
+}
+updateVideo();
+// --- VIDEO SCROLL FIX END ---
+
+// Cards Fly-away on scroll
 gsap.to(group.position, {
-    scrollTrigger: {
-        trigger: ".gallery-section",
-        start: "top bottom",
-        end: "top center",
-        scrub: 1
-    },
-    y: 12, // Cards move up to make space for the brain video details
-    opacity: 0
+    scrollTrigger: { trigger: ".gallery-section", start: "top bottom", scrub: 1 },
+    y: 10, opacity: 0
 });
 
-// Click Interaction
+// Interaction
 window.addEventListener('click', (e) => {
     const mouse = new THREE.Vector2();
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -67,27 +75,19 @@ window.addEventListener('click', (e) => {
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(group.children);
-    if (intersects.length > 0) openSidebar(intersects[0].object.userData);
+    if (intersects.length > 0) {
+        const d = intersects[0].object.userData;
+        document.getElementById('side-title').innerText = d.title;
+        document.getElementById('side-desc').innerText = d.desc;
+        document.getElementById('info-sidebar').classList.add('open');
+        gsap.to("#content-wrapper", { opacity: 1, y: 0, delay: 0.2 });
+    }
 });
 
-function openSidebar(data) {
-    document.getElementById('side-title').innerText = data.title;
-    document.getElementById('side-desc').innerText = data.desc;
-    gsap.to("#info-sidebar", { duration: 0.6, x: 0, ease: "expo.out" });
-    gsap.fromTo("#content-wrapper", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.2 });
-}
-window.closeSidebar = () => gsap.to("#info-sidebar", { duration: 0.5, x: "100%", ease: "expo.in" });
-
-let mX = 0, mY = 0;
-window.addEventListener('mousemove', (e) => {
-    mX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mY = (e.clientY / window.innerHeight - 0.5) * 2;
-});
+window.closeSidebar = () => document.getElementById('info-sidebar').classList.remove('open');
 
 function animate() {
     requestAnimationFrame(animate);
-    group.rotation.y += (mX * 0.4 - group.rotation.y) * 0.1;
-    group.rotation.x += (mY * 0.2 - group.rotation.x) * 0.1;
     renderer.render(scene, camera);
 }
 animate();
