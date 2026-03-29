@@ -11,22 +11,34 @@
     <div id="ui-layer">
         <nav class="navbar">
             <div class="logo">MS.DESIGN</div>
-            <div class="nav-links"><span>WORK</span><span>CONTACT</span></div>
+            <div class="nav-links">
+                <a href="#work">WORK</a>
+                <a href="#contact">CONTACT</a>
+            </div>
         </nav>
 
-        <div class="hero-section">
+        <section class="hero-section">
             <h1 class="main-name">MADHAV<br>SHARMA</h1>
-            <p class="tagline">WEB DESIGNER | OPTIMIST | BASKETBALL ENTHUSIAST</p>
-        </div>
+            <p class="tagline">WEB DESIGNER | CYBER SECURITY STUDENT | ATHLETE</p>
+        </section>
 
-        <div id="info-sidebar" class="sidebar">
-            <button class="close-btn" onclick="closeSidebar()">&times;</button>
-            <div class="sidebar-content">
-                <h2 id="side-title">Section</h2>
-                <div class="line"></div>
-                <p id="side-desc">Description...</p>
+        <section id="work" class="projects-container">
+            <h2 class="section-title">FEATURED WORK</h2>
+            <div class="projects-grid">
+                <a href="https://voidstore-tan.vercel.app/" target="_blank" class="project-card">
+                    <h3>Void Store</h3>
+                    <p>Gaming Account Marketplace</p>
+                </a>
+                <a href="https://desitalk-sigma.vercel.app/" target="_blank" class="project-card">
+                    <h3>DesiTalk</h3>
+                    <p>College Community Platform</p>
+                </a>
+                <div class="project-card">
+                    <h3>Cyber Portfolio</h3>
+                    <p>Security & Pentesting Logs</p>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <div id="canvas-container"></div>
