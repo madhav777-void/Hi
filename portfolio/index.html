@@ -8,40 +8,41 @@
 </head>
 <body>
 
+    <div id="canvas-container"></div>
+
     <div id="ui-layer">
         <nav class="navbar">
             <div class="logo">MS.DESIGN</div>
             <div class="nav-links">
                 <a href="#work">WORK</a>
-                <a href="#contact">CONTACT</a>
+                <a href="mailto:your-email@gmail.com">CONTACT</a>
             </div>
         </nav>
 
         <section class="hero-section">
             <h1 class="main-name">MADHAV<br>SHARMA</h1>
-            <p class="tagline">WEB DESIGNER | CYBER SECURITY STUDENT | ATHLETE</p>
+            <p class="tagline">WEB DESIGNER | CYBER SECURITY STUDENT | BASKETBALL ENTHUSIAST</p>
+            <div class="scroll-indicator">SCROLL TO VIEW PROJECTS ↓</div>
         </section>
 
         <section id="work" class="projects-container">
-            <h2 class="section-title">FEATURED WORK</h2>
+            <h2 class="section-title">PROJECTS</h2>
             <div class="projects-grid">
                 <a href="https://voidstore-tan.vercel.app/" target="_blank" class="project-card">
-                    <h3>Void Store</h3>
-                    <p>Gaming Account Marketplace</p>
+                    <div class="card-content">
+                        <h3>Void Store</h3>
+                        <p>Gaming account marketplace with optimized performance.</p>
+                    </div>
                 </a>
                 <a href="https://desitalk-sigma.vercel.app/" target="_blank" class="project-card">
-                    <h3>DesiTalk</h3>
-                    <p>College Community Platform</p>
+                    <div class="card-content">
+                        <h3>DesiTalk</h3>
+                        <p>Reddit-style community platform for college students.</p>
+                    </div>
                 </a>
-                <div class="project-card">
-                    <h3>Cyber Portfolio</h3>
-                    <p>Security & Pentesting Logs</p>
-                </div>
             </div>
         </section>
     </div>
-
-    <div id="canvas-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
