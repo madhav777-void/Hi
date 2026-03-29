@@ -2,71 +2,53 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
-body { 
-    background: #000; 
-    color: white; 
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-}
+body { background: #000; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
 #canvas-container {
-    position: fixed;
+    position: fixed; /* 3D scene background mein fixed rahega */
     top: 0; left: 0;
     width: 100%; height: 100vh;
-    z-index: -1;
+    z-index: -1; /* Text ke piche */
 }
 
 #ui-layer { position: relative; z-index: 1; }
 
 nav {
-    position: fixed; top: 0; width: 100%; padding: 30px 5%;
+    position: fixed; top: 0; width: 100%; padding: 25px 5%;
     display: flex; justify-content: space-between; align-items: center;
-    background: rgba(0,0,0,0.3); backdrop-filter: blur(15px); z-index: 100;
+    background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); z-index: 100;
 }
 
-.nav-links a { color: #fff; text-decoration: none; margin-left: 25px; font-size: 0.8rem; letter-spacing: 2px; }
+.nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.7rem; letter-spacing: 2px; }
 
 .hero-section {
     height: 100vh;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     text-align: center; padding: 0 10%;
+    pointer-events: none; /* Mouse move background tak pass hone dega */
 }
 
-.main-name { font-size: clamp(3.5rem, 12vw, 10rem); font-weight: 900; line-height: 0.85; pointer-events: none; }
-.tagline { margin-top: 15px; font-size: 0.8rem; color: #00ffcc; letter-spacing: 5px; text-transform: uppercase; pointer-events: none; }
+.main-name { font-size: clamp(3rem, 12vw, 9rem); font-weight: 900; line-height: 0.85; }
+.tagline { margin-top: 15px; font-size: 0.75rem; color: #00ffcc; letter-spacing: 4px; text-transform: uppercase; }
 
 .bio-box {
-    max-width: 500px;
-    margin-top: 30px;
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 12px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.1);
+    max-width: 450px; margin-top: 25px;
+    background: rgba(255,255,255,0.05); padding: 20px;
+    border-radius: 15px; backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1); pointer-events: auto;
 }
 
-.bio-box p { font-size: 0.95rem; line-height: 1.6; color: #ccc; }
-
-.scroll-hint { position: absolute; bottom: 30px; font-size: 0.7rem; color: #555; letter-spacing: 2px; }
-
-.projects-section { padding: 100px 10%; background: linear-gradient(transparent, #000 30%); }
-.section-title { font-size: 2.5rem; margin-bottom: 40px; color: #00ffcc; }
-
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.projects-section { padding: 80px 10%; background: linear-gradient(transparent, #000 40%); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 40px; border-radius: 15px;
-    text-decoration: none; color: white;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+    padding: 30px; border-radius: 15px; text-decoration: none; color: white;
+    transition: 0.3s; backdrop-filter: blur(10px);
 }
-
-.project-card:hover { transform: translateY(-10px); border-color: #00ffcc; background: rgba(0, 255, 204, 0.05); }
+.project-card:hover { border-color: #00ffcc; transform: translateY(-5px); }
 
 @media (max-width: 768px) {
-    nav { padding: 20px; }
-    .main-name { font-size: 4.5rem; }
-    .bio-box { margin-top: 20px; padding: 15px; }
+    .main-name { font-size: 3.5rem; }
+    nav { padding: 15px; }
 }
